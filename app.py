@@ -13,31 +13,18 @@ if 'board' not in st.session_state:
 if 'last_move' not in st.session_state:
     st.session_state.last_move = ""
 
-variation_1 = [
-    "e4",  "e5",
-    "Nf3", "Nf6"
-]
-
-variation_2 = [
-    "e4",  "e5",
-    "Nf3", "Nf6",
-    "Ne5", "Nc6",
-    "Nc6", "d7c6"
-]
+if 'orientation' not in st.session_state:
+    st.session_state.orientation = chess.WHITE
 
 dict_files = {
       "Variation 1": "config/sg_variation_1.csv"
     , "Variation 2": "config/sg_variation_2.csv"
     , "Variation 3": "config/sg_variation_3.csv"
     , "Variation 4": "config/sg_variation_4.csv"
-#    , "Variation 5": "config/sg_variation_5.csv"
-#    , "Variation 6": "config/sg_variation_6.csv"
-#    , "Variation 7": "config/sg_variation_7.csv"
-}
-
-dict_moves = {
-      "Variation 1": variation_1
-    , "Variation 2": variation_2
+    , "Variation 5": "config/sg_variation_5.csv"
+    , "Variation 6": "config/sg_variation_6.csv"
+    , "Variation 7": "config/sg_variation_7.csv"
+    , "Fishing Pole Trap": "config/fishing_pole_trap.csv"
 }
 
 dict_moves = dict()
@@ -51,6 +38,7 @@ for k, v in dict_files.items():
 def reset_counter():
     st.session_state.count = 0
     st.session_state.board = chess.Board()
+    st.session_state.last_move = ""
 
 def increment_counter():
     moves = dict_moves[st.session_state.variation]
@@ -60,25 +48,25 @@ def increment_counter():
 
 def decrement_counter():
     if st.session_state.count > 0:
-        st.session_state.board.pop()
+        st.session_state.last_move = st.session_state.board.pop()
         st.session_state.count -= 1
 
 def render_svg(col1):
     """Renders the given svg string."""
     if st.session_state.last_move == "":
         svg = csvg.board(st.session_state.board,
-                         #orientation=chess.BLACK,
+                         orientation=st.session_state.orientation,
                          size=350)
     else:
         if st.session_state.board.is_check():
             svg = csvg.board(st.session_state.board,
-                             #orientation=chess.BLACK,
+                             orientation=st.session_state.orientation,
                              check=chess.Square(st.session_state.board.king(chess.WHITE)),
                              lastmove=st.session_state.last_move,
                              size=350)
         else:
             svg = csvg.board(st.session_state.board,
-                             #orientation=chess.BLACK,
+                             orientation=st.session_state.orientation,
                              lastmove=st.session_state.last_move,
                              size=350)
 
@@ -94,10 +82,12 @@ st.session_state.variation = st.sidebar.selectbox(
 st.markdown("""### Stafford Gambit""")
 #st.markdown("""---""")
 st.write(st.session_state.variation)
-vv, ww, xx, yy, aa, bb, cc, dd, ee, ff, gg, hh = st.columns(12)
+vv, xx, yy, aa = st.columns([2, 1, 1, 4])
 but_prev = xx.button('<<', on_click=decrement_counter)
 but_next = yy.button('>>', on_click=increment_counter)
+orientation = vv.radio("Orient", ('White', 'Black'), horizontal=True)
 col1, col2 = st.columns(2)
+st.session_state.orientation = chess.WHITE if orientation == 'White' else chess.BLACK
 render_svg(col1)
 if st.session_state.board.is_check():
     if st.session_state.board.is_checkmate():
