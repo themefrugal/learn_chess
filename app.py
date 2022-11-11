@@ -86,7 +86,7 @@ st.write(st.session_state.variation)
 vv, xx, yy, aa = st.columns([2, 1, 1, 4])
 but_prev = xx.button('<<', on_click=decrement_counter)
 but_next = yy.button('>>', on_click=increment_counter)
-orientation = vv.radio("Orient", ('White', 'Black'), horizontal=True)
+orientation = vv.radio("", ('White', 'Black'), horizontal=True)
 col1, col2 = st.columns(2)
 st.session_state.orientation = chess.WHITE if orientation == 'White' else chess.BLACK
 render_svg(col1)
