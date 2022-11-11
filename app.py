@@ -17,7 +17,8 @@ if 'orientation' not in st.session_state:
     st.session_state.orientation = chess.WHITE
 
 dict_files = {
-      "Variation 1": "config/sg_variation_1.csv"
+      "Main Line": "config/sg_main_line.csv",
+    , "Variation 1": "config/sg_variation_1.csv"
     , "Variation 2": "config/sg_variation_2.csv"
     , "Variation 3": "config/sg_variation_3.csv"
     , "Variation 4": "config/sg_variation_4.csv"
