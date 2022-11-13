@@ -106,5 +106,3 @@ df_config = pd.read_csv(dict_files[st.session_state.variation])
 df_config = df_config.fillna("")
 df_config.index += 1
 col2.table(df_config)
-
-# display_area = st.empty()
