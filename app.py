@@ -69,7 +69,8 @@ def render_svg(col1):
         if st.session_state.board.is_check():
             svg = csvg.board(st.session_state.board,
                              orientation=st.session_state.orientation,
-                             check=chess.Square(st.session_state.board.king(chess.WHITE)),
+                             check=chess.Square(
+                                 st.session_state.board.king(st.session_state.board.turn)),
                              lastmove=st.session_state.last_move,
                              size=350)
         else:
@@ -87,12 +88,12 @@ st.session_state.variation = st.sidebar.selectbox(
     "Select Variation", dict_files.keys(), on_change=reset_counter)
 
 # st.write('Count = ', st.session_state.count)
-st.markdown("""### Stafford Gambit""")
+# st.markdown("""### Stafford Gambit""")
 #st.markdown("""---""")
-st.write(st.session_state.variation)
+st.markdown(st.session_state.variation)
 vv, xx, yy, aa = st.columns([2, 1, 1, 4])
-but_prev = xx.button('<<', on_click=decrement_counter)
-but_next = yy.button('>>', on_click=increment_counter)
+but_prev = xx.button('Prev', on_click=decrement_counter)
+but_next = yy.button('Next', on_click=increment_counter)
 orientation = vv.radio("Orientation:", ('White', 'Black'), horizontal=True)
 col1, col2 = st.columns(2)
 st.session_state.orientation = chess.WHITE if orientation == 'White' else chess.BLACK
