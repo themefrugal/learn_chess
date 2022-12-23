@@ -30,6 +30,7 @@ dict_files = {
     , "Variation 6": "config/sg_variation_6.csv"
     , "Variation 7": "config/sg_variation_7.csv"
     , "Fishing Pole Trap": "config/fishing_pole_trap.csv"
+    , "Anand-Levon-2013": "config/anand_levon_2013.csv"
 }
 
 dict_moves = dict()
@@ -38,8 +39,8 @@ for k, v in dict_files.items():
     df_config.columns = [x.strip() for x in df_config.columns]
     variation = [str(x).strip() for xs in df_config.values.tolist() for x in xs]
     variation = [x for x in variation if x != "nan"]
-    if k == "Scholar's Mate":
-        print(variation)
+    # if k == "Scholar's Mate":
+    #    print(variation)
     dict_moves[k] = variation
 
 
