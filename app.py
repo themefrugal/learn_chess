@@ -21,16 +21,18 @@ dict_files = {
       "Fools Mate 1": "config/fools_mate_1.csv"
     , "Fools Mate 2": "config/fools_mate_2.csv"
     , "Scholar's Mate": "config/scholars_mate.csv"
-    , "Main Line": "config/sg_main_line.csv"
-    , "Variation 1": "config/sg_variation_1.csv"
-    , "Variation 2": "config/sg_variation_2.csv"
-    , "Variation 3": "config/sg_variation_3.csv"
-    , "Variation 4": "config/sg_variation_4.csv"
-    , "Variation 5": "config/sg_variation_5.csv"
-    , "Variation 6": "config/sg_variation_6.csv"
-    , "Variation 7": "config/sg_variation_7.csv"
+    , "Stafford Gambit Main Line": "config/sg_main_line.csv"
+    , "Stafford Gambit Variation 1": "config/sg_variation_1.csv"
+    , "Stafford Gambit Variation 2": "config/sg_variation_2.csv"
+    , "Stafford Gambit Variation 3": "config/sg_variation_3.csv"
+    , "Stafford Gambit Variation 4": "config/sg_variation_4.csv"
+    , "Stafford Gambit Variation 5": "config/sg_variation_5.csv"
+    , "Stafford Gambit Variation 6": "config/sg_variation_6.csv"
+    , "Stafford Gambit Variation 7": "config/sg_variation_7.csv"
     , "Fishing Pole Trap": "config/fishing_pole_trap.csv"
     , "Anand-Levon-2013": "config/anand_levon_2013.csv"
+    , "London System Variation 1": "config/london_system.csv"
+
 }
 
 dict_moves = dict()
