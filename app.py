@@ -29,6 +29,8 @@ dict_files = {
     , "Stafford Gambit Variation 5": "config/sg_variation_5.csv"
     , "Stafford Gambit Variation 6": "config/sg_variation_6.csv"
     , "Stafford Gambit Variation 7": "config/sg_variation_7.csv"
+    , "Stafford Gambit Variation 8a": "config/sg_variation_8a.csv"
+    , "Stafford Gambit Variation 8b": "config/sg_variation_8b.csv"
     , "Fishing Pole Trap": "config/fishing_pole_trap.csv"
     , "Anand-Levon-2013": "config/anand_levon_2013.csv"
     , "London System Variation 1": "config/london_system.csv"
