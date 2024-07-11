@@ -3,6 +3,7 @@ import chess
 from chess import svg as csvg
 import base64
 import pandas as pd
+from pathlib import Path
 import math
 
 if 'count' not in st.session_state:
@@ -17,36 +18,43 @@ if 'last_move' not in st.session_state:
 if 'orientation' not in st.session_state:
     st.session_state.orientation = chess.WHITE
 
-dict_files = {
-      "Fools Mate 1": "config/fools_mate_1.csv"
-    , "Fools Mate 2": "config/fools_mate_2.csv"
-    , "Scholar's Mate": "config/scholars_mate.csv"
-    , "Stafford Gambit Main Line": "config/sg_main_line.csv"
-    , "Stafford Gambit Variation 1": "config/sg_variation_1.csv"
-    , "Stafford Gambit Variation 2": "config/sg_variation_2.csv"
-    , "Stafford Gambit Variation 3": "config/sg_variation_3.csv"
-    , "Stafford Gambit Variation 4": "config/sg_variation_4.csv"
-    , "Stafford Gambit Variation 5": "config/sg_variation_5.csv"
-    , "Stafford Gambit Variation 6": "config/sg_variation_6.csv"
-    , "Stafford Gambit Variation 7": "config/sg_variation_7.csv"
-    , "Stafford Gambit Variation 8a": "config/sg_variation_8a.csv"
-    , "Stafford Gambit Variation 8b": "config/sg_variation_8b.csv"
-    , "Fishing Pole Trap": "config/fishing_pole_trap.csv"
-    , "Anand-Levon-2013": "config/anand_levon_2013.csv"
-    , "London System Variation 1": "config/london_system.csv"
-
-}
+if False:
+    dict_files = {
+          "Fools Mate 1": "config/fools_mate_1.csv"
+        , "Fools Mate 2": "config/fools_mate_2.csv"
+        , "Scholar's Mate": "config/scholars_mate.csv"
+        , "Stafford Gambit Main Line": "config/sg_main_line.csv"
+        , "Stafford Gambit Variation 1": "config/sg_variation_1.csv"
+        , "Stafford Gambit Variation 2": "config/sg_variation_2.csv"
+        , "Stafford Gambit Variation 3": "config/sg_variation_3.csv"
+        , "Stafford Gambit Variation 4": "config/sg_variation_4.csv"
+        , "Stafford Gambit Variation 5": "config/sg_variation_5.csv"
+        , "Stafford Gambit Variation 6": "config/sg_variation_6.csv"
+        , "Stafford Gambit Variation 7": "config/sg_variation_7.csv"
+        , "Stafford Gambit Variation 8a": "config/sg_variation_8a.csv"
+        , "Stafford Gambit Variation 8b": "config/sg_variation_8b.csv"
+        , "Fishing Pole Trap": "config/fishing_pole_trap.csv"
+        , "Anand-Levon-2013": "config/anand_levon_2013.csv"
+        , "London System Variation 1": "config/london_system.csv"
+    }
 
 dict_moves = dict()
-for k, v in dict_files.items():
-    df_config = pd.read_csv(v)
+dict_files = dict()
+
+pathlist = Path('./config').rglob('*.csv')
+for path in pathlist:
+    v = str(path)
+#for k, v in dict_files.items():
+    with open(v) as f:
+        k = f.readline().strip('\n')
+    dict_files[k] = v
+    df_config = pd.read_csv(v, skiprows=1)
     df_config.columns = [x.strip() for x in df_config.columns]
     variation = [str(x).strip() for xs in df_config.values.tolist() for x in xs]
     variation = [x for x in variation if x != "nan"]
     # if k == "Scholar's Mate":
     #    print(variation)
     dict_moves[k] = variation
-
 
 def reset_counter():
     st.session_state.count = 0
@@ -108,7 +116,7 @@ if st.session_state.board.is_check():
         col1.write('CHECK MATE!')
     else:
         col1.write('CHECK!')
-df_config = pd.read_csv(dict_files[st.session_state.variation])
+df_config = pd.read_csv(dict_files[st.session_state.variation], skiprows=1)
 df_config = df_config.fillna("")
-df_config.index += 1
-col2.table(df_config)
+# df_config.index += 1
+col2.table(df_config.reset_index(drop=True))
